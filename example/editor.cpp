@@ -19,6 +19,7 @@
 
 #include "fakevimactions.h"
 #include "fakevimhandler.h"
+#include "editor.h"
 
 #include <QApplication>
 #include <QFontMetrics>
@@ -590,4 +591,3 @@ void connectSignals(
         proxy->openFile(fileToEdit);
 }
 
-#include "editor.moc"

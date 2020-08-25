@@ -1,15 +1,11 @@
 cmake_minimum_required(VERSION 2.8.8)
 project(fakevim_example)
 
-find_package(fakevim REQUIRED)
-find_package(Qt5Widgets REQUIRED)
+set(AUTOMOC ON)
 
-set(bin fakevim_example)
-add_executable(${bin} main.cpp editor.cpp)
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core REQUIRED)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-qt5_generate_moc("editor.cpp" "editor.moc")
-target_sources(${bin} PRIVATE "editor.moc")
+add_executable(fakevim_example main.cpp editor.cpp editor.h)
 
-target_link_libraries(${bin} fakevim)
-target_link_libraries(${bin} Qt5::Widgets)
+target_link_libraries(fakevim_example PRIVATE Qt5::Core Qt5::Widgets fakevim)

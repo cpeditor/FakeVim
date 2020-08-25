@@ -1,41 +1,47 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.12)
 project(fakevim VERSION 0.0.1)
 
-# Library name
-set(bin fakevim)
-
 # Public headers
-set(${bin}_public_headers
-    fakevim/fakevimactions.h
-    fakevim/fakevimhandler.h
-    )
+# set(${bin}_public_headers
+#    fakevim/fakevimactions.h
+#    fakevim/fakevimhandler.h
+#    )
+
+set(AUTORCC ON)
+set(AUTOUIC ON)
+set(AUTORCC ON)
+
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core REQUIRED)
+
+add_library(fakevim
+	fakevim/fakevimactions.cpp
+	fakevim/fakevimhandler.cpp
+	fakevim/utils/qtcassert.cpp
+
+	fakevim/fakevimactions.h
+	fakevim/fakevimhandler.h
+	)
+
+include_directories("fakevim")
 
 # Source files common for all platforms
-set(${bin}_sources
-    fakevim/fakevimactions.cpp
-    fakevim/fakevimhandler.cpp
-    fakevim/utils/qtcassert.cpp
-    ${${bin}_public_headers}
-    )
+# set(${bin}_pkg_config_requires)
 
-# Required pkg-config packages
-set(${bin}_pkg_config_requires)
-
-include(cmake/cxx11.cmake)
-include(cmake/library.cmake)
-include(cmake/qt.cmake)
-include(cmake/pkg-config.cmake)
+# include(cmake/cxx11.cmake)
+# include(cmake/library.cmake)
+# include(cmake/qt.cmake)
+# include(cmake/pkg-config.cmake)
 
 # Files with Q_OBJECT macros to pass to moc utility
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-qt5_wrap_cpp(${bin}_mocced "fakevim/fakevimhandler.h")
+target_link_libraries(fakevim PRIVATE Qt5::Widgets)
+target_link_libraries(fakevim PRIVATE Qt5::Core)
+# qt5_wrap_cpp(${bin}_mocced "fakevim/fakevimhandler.h")
 # Generate moc file with correct file name.
-qt5_generate_moc("fakevim/fakevimhandler.cpp" "fakevimhandler.moc")
-target_sources(${bin} PRIVATE ${${bin}_mocced} "fakevimhandler.moc")
+# qt5_generate_moc("fakevim/fakevimhandler.cpp" "fakevimhandler.moc")
+# target_sources(${bin} PRIVATE ${${bin}_mocced} "fakevimhandler.moc")
+option(BUILD_EXAMPLE "Build example")
 
-option(BUILD_TESTS "Build tests")
-if (BUILD_TESTS)
-    message(STATUS "Building tests")
-    add_subdirectory(tests)
-enable_testing()
+if(BUILD_EXAMPLE)
+	add_subdirectory(example)
 endif()
