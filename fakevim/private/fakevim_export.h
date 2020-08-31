@@ -9,15 +9,27 @@
 #  ifndef FAKEVIM_EXPORT
 #    ifdef fakevim_EXPORTS
         /* We are building this library */
-#      define FAKEVIM_EXPORT __attribute__((visibility("default")))
+#      ifdef _WIN32
+#        define FAKEVIM_EXPORT 
+#      else
+#        define FAKEVIM_EXPORT __attribute__((visibility("default")))
+#      endif
 #    else
         /* We are using this library */
-#      define FAKEVIM_EXPORT __attribute__((visibility("default")))
+#      ifdef _WIN32
+#        define FAKEVIM_EXPORT 
+#      else
+#        define FAKEVIM_EXPORT __attribute__((visibility("default")))
+#      endif
 #    endif
 #  endif
 
 #  ifndef FAKEVIM_NO_EXPORT
-#    define FAKEVIM_NO_EXPORT __attribute__((visibility("hidden")))
+#    ifdef _WIN32
+#      define FAKEVIM_NO_EXPORT 
+#    else
+#      define FAKEVIM_NO_EXPORT __attribute__((visibility("hidden")))
+#    endif
 #  endif
 #endif
 
@@ -39,4 +51,4 @@
 #  endif
 #endif
 
-#endif
+#
