@@ -59,8 +59,9 @@ struct Range
     RangeMode rangemode = RangeCharMode;
 };
 
-struct ExCommand
+class ExCommand
 {
+  public:
     ExCommand() = default;
     ExCommand(const QString &cmd, const QString &args = QString(),
         const Range &range = Range());
