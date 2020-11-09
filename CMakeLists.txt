@@ -17,6 +17,8 @@ find_package(Qt5 COMPONENTS Core REQUIRED)
 add_library(fakevim
 	fakevim/fakevimactions.cpp
 	fakevim/fakevimhandler.cpp
+    fakevim/utils/hostosinfo.cpp
+    fakevim/utils/osspecificaspects.h
 	fakevim/utils/qtcassert.cpp
 
 	fakevim/fakevimactions.h
@@ -32,6 +34,8 @@ include_directories("fakevim")
 # include(cmake/library.cmake)
 # include(cmake/qt.cmake)
 # include(cmake/pkg-config.cmake)
+
+add_definitions( -DQTCREATOR_UTILS_STATIC_LIB  )
 
 # Files with Q_OBJECT macros to pass to moc utility
 target_link_libraries(fakevim PRIVATE Qt5::Widgets)
