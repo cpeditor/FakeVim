@@ -27,9 +27,7 @@
 
 #define FAKEVIM_STANDALONE // Only diff with upstream, I hope
 
-#ifdef FAKEVIM_STANDALONE
-#   include "private/fakevim_export.h"
-#else
+#ifndef FAKEVIM_STANDALONE
 #   include <utils/savedaction.h>
 #endif
 
@@ -43,7 +41,7 @@
 namespace FakeVim {
 namespace Internal {
 
-class FAKEVIM_EXPORT DummyAction
+class DummyAction
 {
 public:
     DummyAction(void *parent);
@@ -115,7 +113,7 @@ enum FakeVimSettingsCode
     ConfigBlinkingCursor
 };
 
-class FAKEVIM_EXPORT FakeVimSettings
+class FakeVimSettings
 {
     Q_DECLARE_TR_FUNCTIONS(FakeVim)
 
@@ -143,8 +141,8 @@ private:
     QHash<int, QString> m_codeToName;
 };
 
-FAKEVIM_EXPORT FakeVimSettings *theFakeVimSettings();
-FAKEVIM_EXPORT FakeVimAction *theFakeVimSetting(int code);
+FakeVimSettings *theFakeVimSettings();
+FakeVimAction *theFakeVimSetting(int code);
 
 } // namespace Internal
 } // namespace FakeVim

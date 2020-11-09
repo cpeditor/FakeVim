@@ -27,10 +27,6 @@
 
 #define FAKEVIM_STANDALONE // Only diff with upstream, I hope
 
-#ifdef FAKEVIM_STANDALONE
-#   include "private/fakevim_export.h"
-#endif
-
 #include <QObject>
 #include <QTextEdit>
 
@@ -51,7 +47,7 @@ enum RangeMode
     RangeBlockAndTailMode // Ctrl-v for D and X
 };
 
-struct FAKEVIM_EXPORT Range
+struct Range
 {
     Range() = default;
     Range(int b, int e, RangeMode m = RangeCharMode);
@@ -109,7 +105,7 @@ private:
     std::vector<Callable> m_callables;
 };
 
-class FAKEVIM_EXPORT FakeVimHandler : public QObject
+class FakeVimHandler : public QObject
 {
     Q_OBJECT
 
