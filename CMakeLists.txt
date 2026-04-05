@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.5...3.12)
 project(fakevim VERSION 0.0.1)
 
 # Public headers
@@ -11,8 +11,8 @@ set(AUTORCC ON)
 set(AUTOUIC ON)
 set(AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt5 COMPONENTS Core REQUIRED)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Core)
 
 add_library(fakevim
 	fakevim/fakevimactions.cpp
@@ -38,8 +38,8 @@ include_directories("fakevim")
 add_definitions( -DQTCREATOR_UTILS_STATIC_LIB  )
 
 # Files with Q_OBJECT macros to pass to moc utility
-target_link_libraries(fakevim PRIVATE Qt5::Widgets)
-target_link_libraries(fakevim PRIVATE Qt5::Core)
+target_link_libraries(fakevim PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(fakevim PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 # qt5_wrap_cpp(${bin}_mocced "fakevim/fakevimhandler.h")
 # Generate moc file with correct file name.
 # qt5_generate_moc("fakevim/fakevimhandler.cpp" "fakevimhandler.moc")
